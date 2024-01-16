@@ -7,7 +7,7 @@ library(viridis)
 sampleList_k27me3 <- c("1_78-1_K27me3_Accutase", "2_78-1_K27me3_Trypsin",
                        "3_78-1_K27me3_FF", "4_78-1_K27me3_Scraped")
 
-sampleList_K9me3 <- c("7_H21792_K9me3_Trypsin", "8_H21792_K29me3_Accutase", 
+sampleList_K9me3 <- c("7_H21792_K9me3_Trypsin", "8_H21792_K9me3_Accutase", 
                       "9_H21792_K9me3_Scraped")
 
 sampleList_k27ac <- c("5_H21792_K27ac_Accutase", "6_H21792_K27ac_Trypsin",
@@ -67,7 +67,6 @@ fragViolinPlot + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 fragHistDist = fragLen %>% ggplot(aes(x = fragLen, y = fragCount, color = sampleInfo, 
                                group = sampleInfo, linetype = Histone)) +
         geom_line(size = 1) +
-        scale_fill_manual(values = CUTTag_Colors) +  # Use scale_fill_manual with your custom colors        theme_bw(base_size = 20) +
         xlab("Fragment Length") +
         ylab("Count") +
         ylim(0,45000) +
