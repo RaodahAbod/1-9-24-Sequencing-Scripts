@@ -42,13 +42,14 @@ fragViolinPlot <- fragLen %>%
         ggplot(aes(x = sampleInfo, y = fragLen, weight = Weight, fill = sampleInfo)) +
         geom_violin(bw = 5, alpha = 0.8) +
         scale_y_continuous(breaks = seq(0, 800, 50)) +
-        scale_fill_manual(values = CUTTag_Colors) +  # Use scale_fill_manual with your custom colors
         theme_bw(base_size = 20) +
         ylim(0, 1000) +
         ylab("Fragment Length") +
         xlab("")
 
-fragViolinPlot
+fragViolinPlot + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
 
 fragHistDist = fragLen %>% ggplot(aes(x = fragLen, y = fragCount, color = sampleInfo, 
                                group = sampleInfo, linetype = Histone)) +
