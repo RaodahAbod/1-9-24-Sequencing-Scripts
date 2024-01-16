@@ -4,14 +4,16 @@ library(tidyverse)
 library(dplyr)
 library(viridis)
 
-sampleList_k27me3 <- c("1_78-1_K27me3_Accutase", "2_78-1_K27me3_Trypsin", "3_78-1_K27me3_FF",
-                "4_78-1_K27me3_Scraped", "7_H21792_K27me3_Trypsin", "8_H21792_K27me3_Accutase",
-                "9_H21792_K27me3_Scraped")
+sampleList_k27me3 <- c("1_78-1_K27me3_Accutase", "2_78-1_K27me3_Trypsin",
+                       "3_78-1_K27me3_FF", "4_78-1_K27me3_Scraped")
+
+sampleList_K9me3 <- c("7_H21792_K9me3_Trypsin", "8_H21792_K29me3_Accutase", 
+                      "9_H21792_K9me3_Scraped")
 
 sampleList_k27ac <- c("5_H21792_K27ac_Accutase", "6_H21792_K27ac_Trypsin",
                       "10_78-1_K27ac_Accutase", "11_78-1_K27ac_Scraped")
 
-sampleList <- c(sampleList_k27ac,sampleList_k27me3)
+sampleList <- c(sampleList_k27ac,sampleList_k27me3,sampleList_K9me3)
 
 fragLen_1 <- c()
 for(sample in sampleList_k27me3){
@@ -33,7 +35,18 @@ for(sample in sampleList_k27ac){
                        Histone = histInfo[1], sampleInfo = sample) %>% rbind(fragLen_2, .) 
 }
 
-fragLen <- rbind(fragLen_1,fragLen_2)
+fragLen_3 <- c()
+for(sample in sampleList_K9me3){
+        histInfo = "H3K9me3"
+        fragLen_3 = read.table(choose.files(), header = FALSE) %>% 
+                mutate(fragLen = V1 %>% as.numeric, 
+                       fragCount = V2 %>% as.numeric, 
+                       Weight = as.numeric(V2)/sum(as.numeric(V2)), 
+                       Histone = histInfo[1], sampleInfo = sample) %>% rbind(fragLen_3, .) 
+}
+
+
+fragLen <- rbind(fragLen_1,fragLen_2,fragLen_3)
 
 #fragLen$sampleInfo = factor(fragLen$sampleInfo, levels = sampleList)
 #fragLen$Histone = factor(fragLen$Histone, levels = histList)
