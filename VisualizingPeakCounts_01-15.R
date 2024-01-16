@@ -6,9 +6,8 @@ library(RColorBrewer)
 
 dataNames <- c("1_78-1_K27me3_Accutase", "2_78-1_K27me3_Trypsin", "3_78-1_K27me3_FF",
                "4_78-1_K27me3_Scraped", "5_H21792_K27ac_Accutase", "6_H21792_K27ac_Trypsin",
-               "7_H21792_K27me3_Trypsin", "8_H21792_K27me3_Accutase",
-               "9_H21792_K27me3_Scraped", "10_78-1_K27ac_Accutase", "11_78-1_K27ac_Scraped",
-               "H3K27ac Day 30 CMs")
+               "7_H21792_K9me3_Trypsin", "8_H21792_K9me3_Accutase",
+               "9_H21792_K9me3_Scraped", "10_78-1_K27ac_Accutase", "11_78-1_K27ac_Scraped")
 
 file <- c()
 for (dataset in dataNames){
