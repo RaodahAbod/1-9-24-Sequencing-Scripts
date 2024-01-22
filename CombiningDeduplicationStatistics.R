@@ -3,6 +3,7 @@ setwd("C:/Users/raoda/Desktop/R Stuff/CUT&Tag Processing")
 library(readr)
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 
 samples <- c("1_78-1_K27me3_Accutase", "2_78-1_K27me3_Trypsin",
              "3_78-1_K27me3_FF", "4_78-1_K27me3_Scraped",
@@ -25,27 +26,14 @@ for(sample in samples){
 }
 write.csv(file, file = "1-9-24 Sequencing Mapping Statistics Pooled.csv")
 
-# i broke it ------------------------------------------------------------------------
+# plotting stats -----------------------------------------------------------------------
+# Example data
+mappingStats <- read.csv(choose.files())
 
-
-# load it
-# cbind with other data types
-# goignt o addin the last columns for ewvent and sample name. 
-# at the very end is when i wuill transpose and selct the columns i want
-
-for(sample in samples){
- for(event in order){
-  file <- read_delim(choose.files(), delim = ":", escape_double = FALSE, 
-                                     col_names = FALSE, trim_ws = TRUE, skip = 5) %>%
-    rowwise() %>% mutate(Sample = sample, Event = event) 
-    #inner_join(file,. , by = V1)
-  #   select(Sample, Event, V1, V5,V6,V7,V8,V9,V12,V14) %>% 
-  #   rbind(file,.)
- }
-}
-
-
-tada <- mutate(as.data.frame(file))
-
+# Create a triple bar graph facet-wrapped by sample type
+ggplot(mappingStats, aes(x = Event, y = Total.records, fill = Event)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~Sample) +
+  labs(title = "Triple Bar Graph Facet-Wrapped by Event", x = "Sample", y = "Read Count")
 
 
