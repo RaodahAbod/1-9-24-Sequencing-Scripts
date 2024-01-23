@@ -30,10 +30,12 @@ write.csv(file, file = "1-9-24 Sequencing Mapping Statistics Pooled.csv")
 # Example data
 mappingStats <- read.csv(choose.files())
 
+# Reorder the levels of the Sample variablema
+mappingStats$Sample <- factor(mappingStats$Sample, levels = samples)
 # Create a triple bar graph facet-wrapped by sample type
-ggplot(mappingStats, aes(x = Event, y = Total.records, fill = Event)) +
+ggplot(mappingStats, aes(x = Sample, y = Read.Count, fill = Event)) +
   geom_bar(stat = "identity", position = "dodge") +
-  facet_wrap(~Sample) +
-  labs(title = "Triple Bar Graph Facet-Wrapped by Event", x = "Sample", y = "Read Count")
-
-
+  facet_wrap(~Collection, ncol=1) +
+  labs(title = "Mapping Statistics Per Sample Grouped By Collection",
+       x = "Sample", y = "Read Count") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
